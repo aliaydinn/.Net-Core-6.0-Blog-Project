@@ -1,0 +1,32 @@
+﻿@using NetCoreBlog.Entity.Entities;
+@model List<Article>
+
+
+@foreach (var item in Model)
+{
+    <div class="mb-3 d-flex justify-content-between ">
+        <div class="pr-3">
+            <h2 class="mb-1 h4" style="font-weight:bold;">
+                <a class="text-dark" asp-controller="Home" asp-action="Detail" asp-route-articleId="@item.Id">@item.Title</a>
+            </h2>
+            <p>
+                @(item.Content.Length > 400 ? item.Content.Substring(0, 400) : item.Content) ...
+            </p>
+
+            <div class="card-text text-muted small" style="font-weight:bold; font-size:17px; color:black;">
+                <img class="rounded-circle" src="~/images/@item.User.Image.FileName" width="40">
+                &nbsp; @item.User.FirstName   @item.User.LastName
+            </div>
+            <small class="text-muted" style="font-weight:bold;"> Okuma Süresi : @item.MinRead dk &nbsp; <span class="ah" aria-hidden="true"><span class="by b bz ca ik">·</span></span> @item.CreatedDate.ToString("dd.MM.yyyy") <span class="ah" aria-hidden="true"><span class="by b bz ca ik">·</span></span> </small>
+            <small class="ml-auto p-3" style="font-weight:bold">@item.Category.Name</small>
+            <a style="font-weight:bold; font-size:17px;"><i class="fa-solid fa-vr-cardboard" style="font-size:14px;"></i> @item.ViewCount</a>
+            
+        </div>
+        &nbsp;
+        <img height="204px;" width="217px;" src="~/images/@item.Image.FileName">
+       
+    </div>
+
+    <div style="height: 50px;"></div>
+    
+}

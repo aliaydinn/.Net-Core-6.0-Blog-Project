@@ -1,0 +1,67 @@
+﻿@model List<CategoryDto>
+<div class="container-fluid flex-grow-1 container-p-y">
+    
+    <div class="alert alert-primary mb-3" style="font-weight:bold;font-size:17px;" role="alert">Kategori Yönetimi — Kategoriler</div>
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card p-lg-5">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered" id="categoriesTable" width="100%" cellspacing="0" style="padding:35px;">
+                <thead>
+                    <tr>
+                        <th>Başlık</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Oluşturan</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Başlık</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Oluşturan</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var category in Model)
+                    {
+                        <tr name="@category.Id">
+                            <td>@category.Name</td>
+                            <td>@category.CreatedDate.ToShortDateString()</td>
+                            <td>@category.CreatedBy</td>
+                            <td>@(category.IsDeleted ? "Aktif Değil" : "Aktif")</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" data-id="@category.Id" asp-area="Admin" asp-controller="Category" asp-action="Update" asp-route-categoryId="@category.Id">
+                                    <i class='bx bx-edit'></i>
+                                </a>
+                                <a class="btn btn-danger btn-sm" data-id="@category.Id" asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-categoryId="@category.Id">
+                                    <i class='bx bx-trash'></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+            
+        </div>
+
+        <div class="mt-5">
+            <a asp-area="Admin" asp-controller="Category" asp-action="Add" style="font-weight:bold;" class="btn btn-outline-primary  "> <i class='bx bx-medical'></i> Kategori Ekle </a>
+
+        </div>
+    </div>
+
+
+    <!--/ Basic Bootstrap Table -->
+
+
+</div>
+
+@section Scripts{
+  <script src="~/js/categoryIndex.js"  type="application/ecmascript"> </script>
+}

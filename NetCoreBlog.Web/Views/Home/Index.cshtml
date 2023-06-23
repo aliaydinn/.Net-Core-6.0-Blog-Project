@@ -1,0 +1,116 @@
+﻿@model ArticleListDto
+<div class="container">
+    <br />
+    
+    <div class="jumbotron jumbotron-fluid mb-3 pt-0 pb-0 bg-lightblue position-relative">
+        <div class="pl-4 pr-0 h-100 tofront">
+            <div class="row justify-content-between">
+                <div class="col-md-6 pt-6 pb-6 align-self-center">
+                    <h1 class="secondfont mb-3 font-weight-bold">Mundana is an HTML Bootstrap Template for Professional Blogging</h1>
+                    <p class="mb-3">
+                        Beautifully crafted with the latest technologies, SASS & Bootstrap 4.1.3, Mundana is the perfect design for your professional blog. Homepage, post article and category layouts available.
+                    </p>
+                    <a href="./article.html" class="btn btn-dark">Read More</a>
+                </div>
+                <div class="col-md-6 d-none d-md-block pr-0" style="background-size:cover;background-image:url(./assets/img/demo/home.jpg);">	</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header -->
+<!--------------------------------------
+MAIN
+--------------------------------------->
+<div class="container pt-4 pb-4">
+    <h5 class="font-weight-bold spanborder"><span>En Çok Görüntülenen </span></h5>
+	<div class="row">	
+            @await Component.InvokeAsync("MostReadArticle")
+           
+		</div>
+	</div>
+</div>
+<br />
+<br />
+
+<div class="container">
+    <div class="row justify-content-between" >
+        <div class="col-md-8 pl-4 ">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h5 class="font-weight-bold spanborder" ><span>Tüm Bloglar</span></h5>
+                <form class="form-inline" asp-controller="Home" asp-action="Search" method="get" style="margin-top: -30px;">
+                    <input class="form-control" name="keyword" style="width: 240px; height: 40px;" type="search" placeholder="Aramak istediğiniz kelime" aria-label="Search">
+                    <button class="btn btn-outline-success" style="width: 90px; height: 40px;" type="submit">Ara</button>
+                </form>
+            </div>
+
+
+            <br />
+
+            @foreach (var item in Model.Articles)
+            {
+                <div class="mb-3 d-flex justify-content-between ">
+                    <div class="pr-3">
+                        <h2 class="mb-1 h4" style="font-weight:bold;">
+                            <a class="text-dark" asp-controller="Home" asp-action="Detail" asp-route-articleId="@item.Id">@item.Title</a>
+                        </h2>
+                        <p>
+                            @(item.Content.Length > 200 ? item.Content.Substring(0, 200) : item.Content) ...
+
+                        </p>
+                        <div class="card-text text-muted small" style="font-weight:bold; font-size:17px; color:black;">
+                            <img class="rounded-circle" src="~/images/@item.User.Image.FileName" width="40">
+                            &nbsp; @item.User.FirstName   @item.User.LastName
+
+                        </div>
+                        <small class="text-muted" style="font-weight:bold;"> Okuma Süresi : @item.MinRead dk &nbsp; <span class="ah" aria-hidden="true"><span class="by b bz ca ik">·</span></span> @item.CreatedDate.ToString("dd.MM.yyyy") <span class="ah" aria-hidden="true"><span class="by b bz ca ik">·</span></span> </small>
+                        <small class="ml-auto p-3" style="font-weight:bold">@item.Category.Name</small>
+                        <a style="font-weight:bold; font-size:17px;"><i class="fa-solid fa-vr-cardboard" style="font-size:14px;"></i> @item.ViewCount</a>
+
+
+
+                    </div>
+
+                    <img height="180px;" width="217px;" src="~/images/@item.Image.FileName">
+
+                </div>
+                <br />
+                <br />
+            }
+
+        </div>
+        
+        <div class="col-md-4 pl-4">
+           
+            <h5 class="font-weight-bold spanborder"><span>Kategoriler</span></h5>
+           
+                @await Component.InvokeAsync("HomeIndexCategory")
+          
+        </div>
+    </div>
+    <br />
+
+
+    <ul class="pagination ">
+        @if (Model.ShowPrevious)
+        {
+            <li class="page-item ">
+                <a class="page-link" asp-route-currentPage="@(Model.CurrentPage-1)" asp-route-pageSize=@Model.PageSize>Önceki</a>
+            </li>
+        }
+        @for (int i = 1; i < Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+
+                <a class="page-link" asp-route-currentPage="@i" asp-route-pageSize="@Model.PageSize"> @i </a>
+            </li>
+        }
+        @if (Model.ShowNext)
+        {
+            <li class="page-item ">
+                <a class="page-link" asp-route-currentPage="@(Model.CurrentPage+1)" asp-route-pageSize=@Model.PageSize>Sonraki</a>
+            </li>
+        }
+        
+    </ul>
+
+</div>

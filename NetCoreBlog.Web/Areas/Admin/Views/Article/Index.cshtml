@@ -1,0 +1,84 @@
+﻿@model List<ArticleDto>
+<div class="container-fluid flex-grow-1 container-p-y ">
+    <div class="alert alert-primary mb-3" style="font-weight:bold;font-size:17px;" role="alert">Makale Yönetimi — Makaleler</div>
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card p-lg-5  ">
+        <div class="table-responsive text-nowrap">         
+            <table class="table table-bordered" id="articlesTable" width="100%" cellspacing="0" style="padding:15px;">
+                <thead>
+                    <tr>
+                        <th>Başlık</th>
+                        <th>Kategori</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Oluşturan</th>
+                        <th>Okuma Süresi</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Başlık</th>
+                        <th>Kategori</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Oluşturan</th>
+                        <th>Okuma Süresi</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var article in Model)
+                    {
+                        <tr name="@article.Id" >
+                            <td>@article.Title</td>
+                            <td>@article.Category.Name</td>
+                            <td>@article.CreatedDate.ToShortDateString()</td>
+                            <td>@article.CreatedBy</td>
+                            <td>@article.MinRead</td>
+                            <td>@(article.IsDeleted ? "Aktif Değil":"Aktif")</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" data-id="@article.Id" asp-area="Admin" asp-controller="Article" asp-action="Update" asp-route-articleId="@article.Id" >
+                                    <i class='bx bx-edit'></i>
+                                </a>
+                                <a class="btn btn-danger btn-sm" data-id="@article.Id" asp-area="Admin" asp-controller="Article" asp-action="Delete" asp-route-articleId="@article.Id">
+                                    <i class='bx bx-trash'></i>
+                                </a>
+                            </td>
+                        </tr>
+                        
+                    }
+                </tbody>
+            </table>
+
+            
+        </div>
+       
+        <div class="mt-5">
+            <a asp-area="Admin" asp-controller="Article" asp-action="Add" style="font-weight:bold;" class="btn btn-outline-primary  "> <i class='bx bx-medical'></i> Makale Ekle </a>
+
+        </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+
+
+</div>
+
+@section Scripts {
+    <script src="~/js/articleIndex.js" type="application/ecmascript">
+
+
+    </script>
+}
+
+
+@* @{
+            @if (!User.IsInRole("User"))
+            {
+                <div class="mt-5">
+                    <a asp-area="Admin" asp-controller="Article" asp-action="Add" style="font-weight:bold;" class="btn btn-outline-primary  "> <i class='bx bx-medical'></i> Makale Ekle </a>
+
+                </div>
+            }
+        }*@

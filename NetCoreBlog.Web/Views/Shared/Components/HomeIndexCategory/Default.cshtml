@@ -1,0 +1,17 @@
+﻿@using NetCoreBlog.Entity.DTOs.Categories;
+@using NetCoreBlog.Entity.Entities;
+@model List<Category>
+
+@foreach (var item in Model)
+{
+
+    <ul class="" style="list-style-type: none; padding-left: 0;">
+        <li>
+            <a style="font-weight:bold; font-size:18px; display: flex; justify-content: flex-start;" asp-controller="Home" asp-action="Index" asp-route-categoryId="@item.Id">
+                <p style="margin-right: 10px; color:black">@item.Name (@item.ArticleCount)</p>
+            </a>
+        </li>
+    </ul>
+
+
+}

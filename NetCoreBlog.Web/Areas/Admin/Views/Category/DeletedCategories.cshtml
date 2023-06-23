@@ -1,0 +1,69 @@
+﻿@model List<CategoryDeleteDto>
+
+<div class="container-fluid flex-grow-1 container-p-y ">
+    <div class="alert alert-dark mb-3" style="font-weight:bold;font-size:17px;" role="alert">Çöp Kutusu — Silinmiş Kategoriler</div>
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card p-lg-5  ">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered" id="articlesTable" width="100%" cellspacing="0" style="padding:15px;">
+                <thead>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Oluşturan</th>
+                        <th>Silinme Tarihi</th>
+                        <th>Silen</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Oluşturan</th>
+                        <th>Silinme Tarihi</th>
+                        <th>Silen</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var category in Model)
+                    {
+                        <tr name="@category.Id">
+                            <td>@category.Name</td>
+                            <td>@category.CreatedDate.ToShortDateString()</td>
+                            <td>@category.CreatedBy</td>
+                            <td>@category.DeletedDate.ToShortDateString()</td>
+                            <td>@category.DeletedBy</td>
+                            <td>@(category.IsDeleted ? "Aktif Değil" : "Aktif")</td>
+                            <td>
+                                <a class="btn rounded-pill btn-dark" data-id="@category.Id" asp-area="Admin" asp-controller="Category" asp-action="UndoDelete" asp-route-categoryId="@category.Id">
+                                    <i class='bx bx-rotate-right'></i>
+                                </a>
+                                @*<a class="btn btn-danger btn-sm" data-id="@article.Id" asp-area="Admin" asp-controller="Article" asp-action="Delete" asp-route-articleId="@article.Id">
+                            <i class='bx bx-trash'></i>
+                            </a>*@
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+
+
+</div>
+
+@section Scripts {
+    <script src="~/js/articleIndex.js" type="application/ecmascript">
+
+
+    </script>
+}

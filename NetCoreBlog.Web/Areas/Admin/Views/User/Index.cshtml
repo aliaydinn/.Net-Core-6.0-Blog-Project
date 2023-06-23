@@ -1,0 +1,94 @@
+﻿@using NetCoreBlog.Web.Consts;
+@model List<UserDto>
+<div class="container-fluid flex-grow-1 container-p-y">
+    <div class="alert alert-primary mb-3" style="font-weight:bold; font-size:17px;" role="alert">Kullanıcı Yönetimi — Kullanıcılar</div>
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card p-lg-5">
+        
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0" style="padding:30px;">
+                <thead>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Soyisim</th>
+                        <th>Email Adresi</th>
+                        <th>Rol</th>
+                        <th>Email Doğrulaması</th>
+                        @{
+                            @if (!User.IsInRole($"{RoleConst.User}"))
+                            {
+                                <th>Telefon Numarası</th>
+                            }
+                        }
+                        
+                        <th>Erişim Hatası</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>İsim</th>
+                        <th>Soyisim</th>
+                        <th>Email Adresi</th>
+                        <th>Rol</th>
+                        <th>Email Doğrulaması</th>
+                        @{
+                            @if (!User.IsInRole($"{RoleConst.User}"))
+                            {
+                                <th>Telefon Numarası</th>
+                            }
+                        }
+                        <th>Erişim Hatası</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var user in Model)
+                    {
+                        <tr name="@user.Id">
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.Email</td>
+                            <td>@user.Role</td>
+                            <td>@(user.EmailConfirmed ? "Doğrulanmış" : "Doğrulanmamış")</td>
+                            @{
+                                @if (!User.IsInRole($"{RoleConst.User}"))
+                                {
+                                    <td>@user.PhoneNumber</td>
+                                }
+                            }                           
+                            <td>@user.AccessFailedCount</td>
+                           
+                            <td>
+                                <a class="btn btn-primary btn-sm" data-id="@user.Id" asp-area="Admin" asp-controller="User" asp-action="Update" asp-route-userId="@user.Id">
+                                    <i class='bx bx-edit'></i>
+                                </a>
+                                <a class="btn btn-danger btn-sm" data-id="@user.Id" asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-userId="@user.Id">
+                                    <i class='bx bx-trash'></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+          
+        </div>
+        <div class="mt-5">
+            <a asp-area="Admin" asp-controller="User" asp-action="Add" style="font-weight:bold;" class="btn btn-outline-primary  "> <i class='bx bx-medical'></i> Kullanıcı Ekle </a>
+
+        </div>
+    </div>
+    <!--/ Basic Bootstrap Table -->
+
+
+</div>
+
+@section Scripts {
+    <script src="~/js/userIndex.js" type="application/ecmascript">
+
+
+    </script>
+}

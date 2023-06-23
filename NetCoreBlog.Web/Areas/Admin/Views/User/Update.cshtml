@@ -1,0 +1,83 @@
+﻿@model UserUpdateDto
+
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-fluid flex-grow-1 container-p-y">
+        <div class="alert alert-primary mb-3" style="font-weight:bold; font-size:17px;" role="alert">Kullanıcı Yönetimi — Kullanıcı Güncelleme Sayfası</div>
+
+        <!-- Basic Layout & Basic with Icons -->
+        <div class="row">
+            <!-- Basic Layout -->
+            <!-- Basic with Icons -->
+            <div class="col-xxl">
+                <div class="card mb-4">                   
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <small class="text-muted float-end">Kullanıcı Bilgileri</small>
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="User" asp-action="Update" enctype="multipart/form-data" method="post">
+                            <div asp-validation-summary="All" style="color:red"></div>
+                            <input  type="hidden" asp-for="Id"  />
+                            <div class="row mb-3">
+                                <label asp-for=FirstName class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Kullanıcı Adı</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
+                                        <input type="text" class="form-control" asp-for=FirstName id="basic-icon-default-fullname" placeholder="Kullanıcı Adı alanını doldurunuz" aria-describedby="basic-icon-default-fullname2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for=LastName class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Kullanıcı Soyadı</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
+                                        <input type="text" class="form-control" asp-for=LastName id="basic-icon-default-fullname" placeholder="Kullanıcı Soyadı alanını doldurunuz" aria-describedby="basic-icon-default-fullname2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" asp-for=Email for="basic-icon-default-email">Email</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                        <input type="text" id="basic-icon-default-email" asp-for=Email class="form-control" placeholder="Kullanıcı Email alanını doldurunuz" aria-label="john.doe" aria-describedby="basic-icon-default-email2">
+
+                                    </div>
+                                    <div class="form-text">Harfleri, sayıları ve noktaları kullanabilirsiniz</div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label asp-for=RoleId class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Rol</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
+                                        <select class="form-control " asp-for="RoleId" asp-items="@(new SelectList(Model.Roles,"Id","Name"))"> </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 form-label" asp-for="PhoneNumber" for="basic-icon-default-phone">Telefon Numarası</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
+                                        <input type="text" id="basic-icon-default-phone" asp-for=PhoneNumber class="form-control phone-mask" placeholder="Kullanıcı Telefon numarasını giriniz" aria-label="658 799 8941" aria-describedby="basic-icon-default-phone2">
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-outline-primary btn-block">Güncelle</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-backdrop fade"></div>
+</div>

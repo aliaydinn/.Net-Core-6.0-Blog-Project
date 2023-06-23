@@ -1,0 +1,75 @@
+﻿@model ArticleDto
+
+<br />
+<div class="alert alert-dark mb-3 text-center" style="font-weight:bold;font-size:17px;" role="alert">Tüm Bloglar / @Model.Title</div>
+
+<div class="container">
+
+	
+	<div class="jumbotron jumbotron-fluid mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
+		<div class="h-100 tofront">
+			<div class="row justify-content-between">
+
+				<div class="col-md-6 pt-6 pb-6 pr-6 align-self-center">
+					
+					<p class="text-uppercase font-weight-bold">
+						<a  class="text-success" asp-controller="Home" asp-action="Index" asp-route-categoryId="@Model.Category.Id" style="font-weight:bold; font-size:20px;">@Model.Category.Name   &nbsp; &nbsp; </a>
+						<a style="font-weight:bold; font-size:20px;"><i class="fa-solid fa-vr-cardboard" style="font-size:20px;"></i> @Model.ViewCount</a>
+					</p>
+					<h1 class="display-4 secondfont mb-3 font-weight-bold">@Model.Title</h1>
+					<br />
+					<div class="d-flex align-items-center">
+						<img class="rounded-circle" src="~/images/@Model.User.Image.FileName"  width="50">
+						&nbsp; &nbsp;
+						<small class="ml-2" style="font-weight:bold; font-size:15px;">
+							@Model.User.FirstName @Model.User.LastName <span class="text-muted d-block" style="font-weight:bold;">@Model.CreatedDate.ToString("dd.MM.yyyy")  ; Okuma Süresi : @Model.MinRead dk</span>
+						</small>
+					</div>
+				</div>
+				<div class="col-md-6 pt-6 pb-6 pr-6 align-self-center">
+					<img width="800px;"  height="400px; " src="~/images/@Model.Image.FileName">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End Header -->
+<!--------------------------------------
+MAIN
+--------------------------------------->
+<div class="container pt-4 pb-4">
+	<div class="row justify-content-center">
+		<div class="col-lg-2 pr-4 mb-4 col-md-12">
+			<div class="sticky-top text-center">
+				<div class="text-muted" style="font-size: 20px; font-weight: bold; color: black;">
+					Sosyal
+				</div>
+
+				<br />
+				<div class="share d-inline-block">
+					<!-- AddToAny BEGIN -->
+					<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+						<a target="_blank" href="https://www.linkedin.com/in/ali-ayd%C4%B1n-a2261b204/"><i class='bx bxl-twitter ' style="font-size:50px; color:black;"></i> </a>
+						<a target="_blank" href="https://www.linkedin.com/in/ali-ayd%C4%B1n-a2261b204/"><i class='bx bxl-linkedin' style="font-size:50px; color:black;"></i></a>
+						<a target="_blank" href="https://github.com/aydinali64"><i class='bx bxl-github' style="font-size:50px; color:black;"></i></a>
+					</div>
+					<script async src="https://static.addtoany.com/menu/page.js"></script>
+					<!-- AddToAny END -->
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 col-lg-8">
+			<article class="article-post">
+				<p>
+					@Model.Content
+				</p>
+
+			</article>
+		</div>
+	</div>
+</div>
+
+<div class="container pt-4 pb-4">
+	<h5 class="font-weight-bold spanborder"><span>İlginizi çekebilecek bloglar</span></h5>
+	@await Component.InvokeAsync("DetailWithRandomArticle")
+</div>

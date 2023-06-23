@@ -1,0 +1,28 @@
+﻿@using NetCoreBlog.Entity.Entities;
+@model List<Article>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-6">
+            <div class="card border-0 mb-4 box-shadow h-xl-300">
+                <img height="350px;" width="250px;" src="~/images/@item.Image.FileName">
+                <div class="card-body px-0 pb-0 d-flex flex-column align-items-start">
+                    <h2 class="h4 font-weight-bold">
+                        <a class="text-dark" asp-controller="Home" asp-action="Detail" asp-route-articleId="@item.Id">@item.Title</a>
+                    </h2>
+                    <p class="card-text">
+                        @(item.Content.Length > 150 ? item.Content.Substring(0, 150) : item.Content) ...
+                    </p>
+                    <div>
+                        <img class="rounded-circle" src="~/images/@item.User.Image.FileName" width="50">
+                        <small class="d-block"><a class="text-muted" style="font-weight:bold; color:black;">@item.User.FirstName @item.User.LastName</a></small>
+                        <small class="text-muted" style="font-weight:bold; color:black;">@item.CreatedDate.ToString("dd.MM.yyyy") · Okuma Süresi : @item.MinRead dk</small>
+                        <small class="ml-auto p-3" style="font-weight:bold">@item.Category.Name</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
