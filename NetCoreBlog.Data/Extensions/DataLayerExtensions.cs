@@ -18,8 +18,9 @@ namespace NetCoreBlog.Data.Extensions
         public static IServiceCollection LoadDataLayerExtension(this IServiceCollection services, IConfiguration config)
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(config.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
                   
             return services;
         }

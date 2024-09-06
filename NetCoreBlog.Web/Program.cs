@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using NetCoreBlog.Data.Context;
 using NetCoreBlog.Data.Extensions;
 using NetCoreBlog.Entity.Entities;
+using NetCoreBlog.Service.CustomValidations;
 using NetCoreBlog.Service.Desribers;
 using NetCoreBlog.Service.Extensions;
 using NetCoreBlog.Web.Filters.ArticleVisitors;
@@ -29,10 +32,14 @@ builder.Services.AddControllersWithViews(opt=>{
 //Canlýya taþýndýðýnda kaldýrýlacak.
 builder.Services.AddIdentity<AppUser, AppRole>(opt =>
 {
-    opt.Password.RequireNonAlphanumeric = false;
-    opt.Password.RequireLowercase = false;
-    opt.Password.RequireUppercase = false;
+    opt.Password.RequireDigit = true;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireNonAlphanumeric = true;
+    opt.Password.RequireUppercase = true;
+    opt.Password.RequiredLength = 6;
+    opt.Password.RequiredUniqueChars = 1;
 })
+    .AddPasswordValidator<CustomPasswordValidation>()
 .AddRoleManager<RoleManager<AppRole>>()
 .AddErrorDescriber<CustomIdentityErrorDesriber>()
 .AddEntityFrameworkStores<AppDbContext>()
